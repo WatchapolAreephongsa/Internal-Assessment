@@ -1,0 +1,334 @@
+# Create screen manager for manage each screen
+ScreenManager:
+    id: scr_mng #create id that represent the screen manager
+    #define each screen and create id for each
+    LoginScreen: # for login
+        id: loginscr
+        name: "LoginScreen"
+    RegisterScreen: # to create account
+        id: registerscr
+        name: "RegisterScreen"
+    HomeScreen: # first page after login successful which shows all the features
+        id: homescr
+        name: "HomeScreen"
+    InfoScreen: # Show stock information
+        name: "InfoScreen"
+        id: InfoScreen
+
+    StockScreen:
+        name: "StockScreen"
+        id:StockScreen
+
+<LoginScreen>:
+    BoxLayout:
+    # Basic layout to set orientation
+        orientation: 'vertical'
+        size: 1000,700
+        #FitImage:
+            #source:"LoginBackground.jpeg"
+    MDCard:
+        size_hint: None, None
+        size: 1000,900
+        elevation: 10
+        pos_hint: {"center_x":.5, "center_y":.5}
+        orientation: "vertical"
+        # for colors, red, green, blue, alpha(transparency)
+        md_bg_color: 3/255, 223/255, 252/255,0.5
+
+        MDBoxLayout:
+            id: on_content
+            orientation: "vertical"
+            MDLabel:
+                text: "StockRead"
+                halign: "center"
+
+                font_style: "H1"
+                #font_name: 'Free.ttf'
+                bold: True
+            MDLabel:
+                id: msg
+                theme_text_color: "Custom"
+                text_color: 0, 0, 0, 1
+                text: 'Get rich.'
+                font_style: "H3"
+                font_size: '35sp'
+                halign: "center"
+
+
+                #font_name: "Conquest.ttf"
+
+
+                font_style: "H6"
+            MDLabel:
+                size_hint: 1,.08
+            MDTextField:
+                id: username
+                size_hint_x: .5
+                hint_text: "username"
+                text: ""
+                pos_hint: {"center_x":.5}
+            MDTextField:
+                id:password
+                hint_text:"password"
+                password:True
+                size_hint_x: .5
+                halign: "center"
+                pos_hint: {"center_x":.5}
+            MDRaisedButton:
+                size_hint_x: 0.5
+                size_hint_y: 0.2
+                pos_hint: {"center_x": 0.5}
+                text: "Log in"
+                hint_text: "username"
+                on_release:
+                    root.login()
+                    #to activate function login from the python file
+
+            MDBoxLayout:
+                size_hint_y: 0.2
+            MDRaisedButton:
+                size_hint_x: 0.5
+                size_hint_y: 0.2
+                pos_hint: {"center_x": 0.5}
+
+                text: "Register"
+                on_release:
+                    #switch to register screen
+                    root.parent.current = "RegisterScreen"
+            MDBoxLayout:
+                id: message
+                size_hint_y: 0.2
+                text: ""
+                text_color:255/255, 59/255, 59/255
+
+
+<RegisterScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: 1000,700
+        #FitImage:
+            #source: "1.jpeg"
+        MDCard:
+            size_hint: None, None
+            size: 700,900
+            elevation: 10
+            pos_hint: {"center_x":.5, "center_y":.5}
+            orientation: "vertical"
+            # for colors, red, green, blue, alpha(transparency)
+            md_bg_color: 240/255, 211/255, 161/255,0.75
+            MDBoxLayout:
+                id: on_content
+                orientation: "vertical"
+                MDLabel:
+                    id: msg
+                    text: "Register"
+                    halign: "center"
+                    pos_hint: { "center_y":.5}
+                    font_style: "H2"
+                MDTextField:
+                    id: username
+                    hint_text: "username"
+                MDTextField:
+                    id: password
+                    hint_text:"password"
+                    password:True
+                MDTextField:
+                    id:confirm
+                    hint_text:"confirm password"
+                    password:True
+                MDRaisedButton:
+                    size_hint_x: 0.5
+                    size_hint_y: 0.2
+                    pos_hint: {"center_x": 0.5}
+                    text: "Register"
+                    on_release:
+                        root.register()
+                MDBoxLayout:
+                    size_hint_y: 0.2
+                    MDLabel
+                        id: msg
+                        halign: "center"
+                        theme_text_color: "Custom"
+                        text_color: 1, 0, 0, 1
+                        text: ""
+
+            MDRaisedButton:
+                size_hint_x: 0.2
+                md_bg_color: 0, 0, 0, 1
+                text: "Back"
+                on_release:
+                    root.back()
+<HomeScreen>:
+    BoxLayout:
+        # Basic layout to set orientation
+        orientation: 'vertical'
+        size: 1000,700
+        #FitImage:
+        #source:"diary.jpeg"
+        MDCard:
+            size_hint: None, None
+            size: 1000,900
+            elevation: 10
+            pos_hint: {"center_x":.5, "center_y":.5}
+            orientation: "vertical"
+            # for colors, red, green, blue, alpha(transparency)
+            md_bg_color: 242/255,220/255,177/255,0.75
+
+            MDRaisedButton:
+                size_hint_x: 0.5
+                size_hint_y: 0.2
+                pos_hint: {"center_x": 0.5}
+
+                text: "Search Stock"
+                on_release:
+                    #switch to register screen
+                    root.parent.current = "InfoScreen"
+
+            MDRaisedButton:
+                size_hint_x: 0.5
+                size_hint_y: 0.2
+                pos_hint: {"center_x": 0.5}
+
+                text: "YourList"
+                on_release:
+                    #switch to register screen
+                    root.parent.current = "StockScreen"
+            MDRaisedButton:
+                size_hint_x: 0.5
+                size_hint_y: 0.2
+                pos_hint: {"center_x": 0.5}
+
+                text: "Sign Out"
+                on_release:
+                    #switch to register screen
+                    root.logout()
+
+
+
+<InfoScreen>:
+    BoxLayout:
+        # Basic layout to set orientation
+        orientation: 'vertical'
+        size: 1000,700
+        MDTextField:
+            id:symbol
+            hint_text:"symbol"
+        MDBoxLayout:
+            size_hint_y: 0.5
+            pos_hint: {"center_x": 0.5, "center_y": 0.2}
+
+        MDBoxLayout:
+            size_hint:1,0.1
+            pos_hint: {"center_x": 0.5, "center_y": 0.7}
+            MDRaisedButton:
+                text: "Search"
+                on_release:
+                    root.searching()
+            MDRaisedButton:
+                text: "Save"
+                pos_hint: {"center_x": 0.5}
+                on_release:
+                    root.save()
+            MDLabel:
+                id:label
+                text: ""
+                text_color:1,1,0,1
+                halign:"center"
+
+
+
+        MDBoxLayout:
+            size_hint_y: 0.1
+            pos_hint: {"center_x": 0.5, "bottom": 0.95}
+            CheckBox:
+                id:shortma
+                pos_hint: {"center_x": 0.5}
+                active: False
+            MDLabel:
+                text: "20 days moving average"
+            CheckBox:
+                id:longma
+                pos_hint: {"center_x": 0.5}
+                active: False
+            MDLabel:
+                text: "75 days moving average"
+            CheckBox:
+                id:bolinger
+                pos_hint: {"center_x": 0.5}
+                active: False
+            MDLabel:
+                text: "20 days Bolinger Band"
+        MDBoxLayout:
+            size_hint: 1,0.1
+            MDRaisedButton:
+                pos_hint: {"center_x": 0.3}
+                text: "Home"
+                on_release:
+                    #switch to register screen
+                    root.parent.current = "HomeScreen"
+            MDRaisedButton:
+                pos_hint: {"center_x": 0.5}
+                text: "Your List"
+                on_press:
+                    #switch to register screen
+                    root.parent.current = "StockScreen"
+            MDLabel:
+                text: ""
+                text_color:1,1,0,1
+                halign:"center"
+            MDRaisedButton:
+                text: "Graph"
+                pos_hint: {"center_x": 0.5}
+                on_release:
+                    root.graph()
+
+            MDRaisedButton:
+                text: "Download Graph"
+                pos_hint: {"center_x": 0.5}
+                on_release:
+                    root.download()
+
+
+
+
+<StockScreen>
+    BoxLayout:
+        # Basic layout to set orientation
+        orientation: 'vertical'
+        size: 1000,700
+        MDBoxLayout:
+            size_hint:1,0.15
+            pos_hint: {"center_x": 0.5, "top_y": 1}
+            MDLabel:
+                id:label
+                text: "Your Stock List"
+                font_style: "H2"
+                halign:"center"
+
+                text_color:0,0,0,1
+        MDBoxLayout:
+            size_hint:1,0.7
+        MDRaisedButton:
+            size_hint_x: 0.5
+            pos_hint: {"center_x": 0.5}
+
+            text: "Delete"
+            on_release:
+                #switch to register screen
+                root.delete()
+
+        MDBoxLayout:
+            size_hint:None,None
+            MDRaisedButton:
+                pos_hint: {"center_x": 0.3}
+                text: "Home"
+                on_release:
+                    #switch to register screen
+                    root.parent.current = "HomeScreen"
+            MDRaisedButton:
+                pos_hint: {"center_x": 0.5}
+                text: "Stock Search"
+                on_release:
+                    #switch to register screen
+                    root.info()
+
